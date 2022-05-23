@@ -16,3 +16,7 @@ If you want to re-generate, please put your `client_secret.json` file.
 
 -   [Japanese (JA)](https://calendar.google.com/calendar/embed?src=ja.japanese%23holiday@group.v.calendar.google.com)
 -   [English (EN)](https://calendar.google.com/calendar/embed?src=en.japanese%23holiday@group.v.calendar.google.com)
+
+## Link(s) ##
+
+-   [National Holidays, Cabinet Office, Government of Japan (Japanese)](https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html)
