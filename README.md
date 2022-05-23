@@ -20,3 +20,7 @@ If you want to re-generate, please put your `client_secret.json` file.
 ## Link(s) ##
 
 -   [National Holidays, Cabinet Office, Government of Japan (Japanese)](https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html)
+
+## Notice(s) ##
+
+-   There is no warranty for this code and data.
