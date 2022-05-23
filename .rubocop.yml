@@ -1,0 +1,8 @@
+AllCops:
+  NewCops: enable
+Metrics/AbcSize:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Security/YAMLLoad:
+  Enabled: false
