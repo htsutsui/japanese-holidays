@@ -10,12 +10,14 @@ If you want to re-generate, please put your `client_secret.json` file.
 
 ## Feature(s) ##
 
--   Both Japanese (JA) and English (En) are included.
+-   Both Japanese (JA) and English (EN) are included.
 
 ## Base Calendar ##
 
 -   [Japanese (JA)](https://calendar.google.com/calendar/embed?src=ja.japanese%23holiday@group.v.calendar.google.com)
+    日本の祝日
 -   [English (EN)](https://calendar.google.com/calendar/embed?src=en.japanese%23holiday@group.v.calendar.google.com)
+    Holidays in Japan
 
 ## Link(s) ##
 
