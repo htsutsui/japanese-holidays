@@ -98,6 +98,20 @@ class CSV
 end
 
 db = CalGen.main
+
+class << db
+  def translate_map
+    each_with_object({}) do |i, tdb|
+      _, val = i
+      raise if tdb[val[:ja]] && tdb[val[:ja]] != val[:en]
+
+      tdb[val[:ja]] = val[:en]
+      tdb
+    end.sort.to_h
+  end
+end
+
 File.write('jp_holidays.yaml', YAML.dump(db))
 File.write('jp_holidays.json', JSON.pretty_generate(db))
 File.write('jp_holidays.csv', CSV.dump(db, CalGen.langs))
+File.write('jp_holidays_translate_map.yaml', YAML.dump(db.translate_map))
