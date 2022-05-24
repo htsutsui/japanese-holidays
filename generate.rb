@@ -50,12 +50,24 @@ module CalGen
       credentials
     end
 
-    def fetch(service)
+    def get(cid)
+      # https://developers.google.com/calendar/api/v3/reference/events/list
+      loop.each_with_object([nil, []]) do |_, i|
+        token, r = i
+        result = @service.list_events(cid, page_token: token)
+        r += result.items
+        break r if token == (n = result.next_page_token)
+
+        [n, r]
+      end
+    end
+
+    def fetch
       db = Hash.new { |hash, key| hash[key] = Hash.new { |h, k| h[k] = [] } }
       @langs.each do |lang|
         # cid = "japanese__#{lang}@holiday.calendar.google.com"
         cid = "#{lang}.japanese#holiday@group.v.calendar.google.com"
-        cache("#{cid}-events.yaml") { service.list_events(cid) }.items.each do |i|
+        cache("#{cid}-events.yaml") { get(cid) }.each do |i|
           raise if i.start.date != i.end.date - 1
 
           db[i.start.date][lang.to_sym] = i.summary
@@ -65,9 +77,9 @@ module CalGen
     end
 
     def main
-      service = Google::Apis::CalendarV3::CalendarService.new
-      service.authorization = get_credentials
-      fetch(service).sort.to_h
+      @service = Google::Apis::CalendarV3::CalendarService.new
+      @service.authorization = get_credentials
+      fetch.sort.to_h
     end
   end
 end
