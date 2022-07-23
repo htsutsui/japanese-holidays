@@ -7,6 +7,8 @@
 The data was generated using
 [Google Calendar API](https://developers.google.com/calendar/api).
 If you want to re-generate, please put your `client_secret.json` file.
+You may get your own `client_secret.json` from
+<https://console.cloud.google.com/apis/credentials>.
 
 ## Feature(s) ##
 
