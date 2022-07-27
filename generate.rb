@@ -9,24 +9,27 @@ require 'yaml'
 require 'json'
 require 'csv'
 
+module Cache
+  def cache(filename)
+    raise if filename.nil?
+
+    if @use_cache && File.exist?(filename)
+      YAML.load(File.read(filename))
+    else
+      File.write(filename, YAML.dump(i = yield))
+      i
+    end
+  end
+end
+
 module CalGen
   @oauth_file = 'oauth.yaml'
   @use_cache = true
   @langs = %w[ja en] # zh ru th ko zh-TW # 日本語以外は en と同じ様子
 
   class << self
+    include Cache
     attr_reader :langs
-
-    def cache(filename)
-      raise if filename.nil?
-
-      if @use_cache && File.exist?(filename)
-        YAML.load(File.read(filename))
-      else
-        File.write(filename, YAML.dump(i = yield))
-        i
-      end
-    end
 
     def get_auth_code(authorizer, user_id, oob_uri)
       url = authorizer.get_authorization_url(base_url: oob_uri)
