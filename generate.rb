@@ -10,11 +10,12 @@ require 'json'
 require 'csv'
 
 module Cache
-  def cache(filename)
+  def cache(filename, permitted_classes = [])
     raise if filename.nil?
 
     if @use_cache && File.exist?(filename)
-      YAML.load(File.read(filename))
+      YAML.safe_load(File.read(filename),
+                     permitted_classes: permitted_classes)
     else
       File.write(filename, YAML.dump(i = yield))
       i
@@ -26,6 +27,16 @@ module CalGen
   @oauth_file = 'oauth.yaml'
   @use_cache = true
   @langs = %w[ja en] # zh ru th ko zh-TW # 日本語以外は en と同じ様子
+  CAL_CLASSES = [
+    Time,
+    Date,
+    DateTime,
+    Google::Apis::CalendarV3::Event,
+    Google::Apis::CalendarV3::Event::Creator,
+    Google::Apis::CalendarV3::Event::Organizer,
+    Google::Apis::CalendarV3::EventDateTime
+  ].freeze
+  YAML_FILENAME = 'jp_holidays.yaml'
 
   class << self
     include Cache
@@ -66,11 +77,11 @@ module CalGen
     end
 
     def fetch
-      db = Hash.new { |hash, key| hash[key] = Hash.new { |h, k| h[k] = [] } }
+      db = load
       @langs.each do |lang|
         # cid = "japanese__#{lang}@holiday.calendar.google.com"
         cid = "#{lang}.japanese#holiday@group.v.calendar.google.com"
-        cache("#{cid}-events.yaml") { get(cid) }.each do |i|
+        cache("#{cid}-events.yaml", CAL_CLASSES) { get(cid) }.each do |i|
           raise if i.start.date != i.end.date - 1
 
           db[i.start.date][lang.to_sym] = i.summary
@@ -83,6 +94,19 @@ module CalGen
       @service = Google::Apis::CalendarV3::CalendarService.new
       @service.authorization = get_credentials
       fetch.sort.to_h
+    end
+
+    def load(filename = YAML_FILENAME)
+      db = if File.exist?(filename)
+             YAML.safe_load(File.read(filename),
+                            permitted_classes: [Date, Symbol])
+           else
+             {}
+           end
+      db.default_proc = proc do |hash, key|
+        hash[key] = Hash.new { |h, k| h[k] = [] }
+      end
+      db
     end
   end
 end
@@ -114,7 +138,7 @@ class << db
   end
 end
 
-File.write('jp_holidays.yaml', YAML.dump(db))
+File.write(CalGen::YAML_FILENAME, YAML.dump(db))
 File.write('jp_holidays.json', JSON.pretty_generate(db))
 File.write('jp_holidays.csv', CSV.dump(db, CalGen.langs))
 File.write('jp_holidays_translate_map.yaml', YAML.dump(db.translate_map))
