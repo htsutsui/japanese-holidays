@@ -60,7 +60,7 @@ module CalGen
         client_id, scope, token_store
       )
       credentials = authorizer.get_credentials(user_id)
-      credentials = get_auth_code(authorizer, user_id, oob_uri) if credentials.nil?
+      credentials = get_auth_code(authorizer, user_id, oob_uri) if credentials.nil? || credentials.expires_at < Time.now
       credentials
     end
 
