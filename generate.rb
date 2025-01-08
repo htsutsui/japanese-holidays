@@ -89,7 +89,11 @@ module CalGen
           next if type == :holiday && !holiday
           next if type == :observance && holiday
 
-          db[i.start.date][lang.to_sym] = i.summary
+          if db[i.start.date][lang.to_sym] && db[i.start.date][lang.to_sym] !~ /#{i.summary}/
+            db[i.start.date][lang.to_sym] += ", #{i.summary}"
+          else
+            db[i.start.date][lang.to_sym] = i.summary
+          end
         end
       end
       db
@@ -102,16 +106,12 @@ module CalGen
     end
 
     def load(filename)
-      db = if File.exist?(filename)
-             YAML.safe_load(File.read(filename),
-                            permitted_classes: [Date, Symbol])
-           else
-             {}
-           end
-      db.default_proc = proc do |hash, key|
-        hash[key] = Hash.new { |h, k| h[k] = [] }
+      if File.exist?(filename)
+        YAML.safe_load(File.read(filename),
+                       permitted_classes: [Date, Symbol])
+      else
+        Hash.new { |h, k| h[k] = {} }
       end
-      db
     end
   end
 end
@@ -133,7 +133,7 @@ module TranslateMap
   def translate_map
     each_with_object({}) do |i, tdb|
       _, val = i
-      next if val[:ja] == '銀行休業日'
+      next if val[:ja] =~ /銀行休業日/
       raise if tdb[val[:ja]] && tdb[val[:ja]] != val[:en]
 
       tdb[val[:ja]] = val[:en]
