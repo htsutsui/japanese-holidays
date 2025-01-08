@@ -1,7 +1,7 @@
 ---
 2020-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2020-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -63,8 +63,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2021-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2021-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -123,8 +123,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2022-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2022-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -180,11 +180,11 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2023-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2023-01-02:
-  :ja: 銀行休業日
-  :en: January 2 Bank Holiday
+  :ja: 休日 元日, 銀行休業日
+  :en: Day off for New Year's Day, January 2 Bank Holiday
 2023-01-03:
   :ja: 銀行休業日
   :en: January 3 Bank Holiday
@@ -237,8 +237,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2024-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2024-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -309,8 +309,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2025-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2025-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -375,8 +375,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2026-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2026-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -438,8 +438,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2027-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2027-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -498,8 +498,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2028-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2028-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -555,8 +555,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2029-01-01:
-  :ja: 銀行休業日
-  :en: January 1 Bank Holiday
+  :ja: 元日, 銀行休業日
+  :en: New Year's Day, January 1 Bank Holiday
 2029-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
@@ -621,8 +621,8 @@
   :ja: 大晦日
   :en: December 31 Bank Holiday
 2030-01-01:
-  :ja: 銀行休業日
-  :en: New Year's Day
+  :ja: 元日, 銀行休業日
+  :en: January 1 Bank Holiday, New Year's Day
 2030-01-02:
   :ja: 銀行休業日
   :en: January 2 Bank Holiday
