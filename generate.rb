@@ -84,6 +84,7 @@ module CalGen
         cid = "#{lang}.japanese#holiday@group.v.calendar.google.com"
         cache("#{cid}-events.yaml", CAL_CLASSES) { get(cid) }.each do |i|
           raise if i.start.date != i.end.date - 1
+          next if i.description !~ /^(Public holiday)|(祝日)$/
 
           db[i.start.date][lang.to_sym] = i.summary
         end
