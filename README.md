@@ -21,6 +21,18 @@ You may get your own `client_secret.json` from
 -   [English (EN)](https://calendar.google.com/calendar/embed?src=en.japanese%23holiday@group.v.calendar.google.com)
     Holidays in Japan
 
+## Other observances ##
+
+The holiday calendar provided by Google includes observances in
+addition to public holidays. As a result, these additional observances
+have been separated into the following files:
+
+-   [YAML](jp_observances.yaml)
+-   [JSON](jp_observances.json)
+-   [CSV](jp_observances.csv)
+
+For more details, see [Google Calendar Help](https://support.google.com/calendar/answer/13748345?hl=en).
+
 ## Link(s) ##
 
 -   [National Holidays, Cabinet Office, Government of Japan (Japanese)](https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html)

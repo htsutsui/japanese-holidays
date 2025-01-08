@@ -77,14 +77,17 @@ module CalGen
       end
     end
 
-    def fetch
-      db = load
+    def fetch(base, type = :holiday)
+      db = load(base)
       @langs.each do |lang|
         # cid = "japanese__#{lang}@holiday.calendar.google.com"
         cid = "#{lang}.japanese#holiday@group.v.calendar.google.com"
         cache("#{cid}-events.yaml", CAL_CLASSES) { get(cid) }.each do |i|
           raise if i.start.date != i.end.date - 1
-          next if i.description !~ /^(Public holiday)|(祝日)$/
+
+          holiday = i.description =~ /^(Public holiday)|(祝日)$/
+          next if type == :holiday && !holiday
+          next if type == :observance && holiday
 
           db[i.start.date][lang.to_sym] = i.summary
         end
@@ -92,13 +95,13 @@ module CalGen
       db
     end
 
-    def main
+    def main(base, type)
       @service = Google::Apis::CalendarV3::CalendarService.new
       @service.authorization = get_credentials
-      fetch.sort.to_h
+      fetch(base, type).sort.to_h
     end
 
-    def load(filename = YAML_FILENAME)
+    def load(filename)
       db = if File.exist?(filename)
              YAML.safe_load(File.read(filename),
                             permitted_classes: [Date, Symbol])
@@ -126,9 +129,7 @@ class CSV
   end
 end
 
-db = CalGen.main
-
-class << db
+module TranslateMap
   def translate_map
     each_with_object({}) do |i, tdb|
       _, val = i
@@ -140,7 +141,16 @@ class << db
   end
 end
 
-File.write(CalGen::YAML_FILENAME, YAML.dump(db))
-File.write('jp_holidays.json', JSON.pretty_generate(db))
-File.write('jp_holidays.csv', CSV.dump(db, CalGen.langs))
-File.write('jp_holidays_translate_map.yaml', YAML.dump(db.translate_map))
+def main(base, type)
+  db = CalGen.main("#{base}.yaml", type)
+  class << db
+    include TranslateMap
+  end
+  File.write("#{base}.yaml", YAML.dump(db))
+  File.write("#{base}.json", JSON.pretty_generate(db))
+  File.write("#{base}.csv", CSV.dump(db, CalGen.langs))
+  File.write("#{base}_translate_map.yaml", YAML.dump(db.translate_map))
+end
+
+main('jp_holidays', :holiday)
+main('jp_observances', :observance)
