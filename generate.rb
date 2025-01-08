@@ -66,11 +66,12 @@ module CalGen
 
     def get(cid)
       # https://developers.google.com/calendar/api/v3/reference/events/list
-      loop.each_with_object([nil, []]) do |_, i|
+      loop.inject([nil, []]) do |i, _|
         token, r = i
         result = @service.list_events(cid, page_token: token)
         r += result.items
-        break r if token == (n = result.next_page_token)
+        n = result.next_page_token
+        break r if token == n || n.nil?
 
         [n, r]
       end
@@ -130,10 +131,10 @@ class << db
   def translate_map
     each_with_object({}) do |i, tdb|
       _, val = i
+      next if val[:ja] == '銀行休業日'
       raise if tdb[val[:ja]] && tdb[val[:ja]] != val[:en]
 
       tdb[val[:ja]] = val[:en]
-      tdb
     end.sort.to_h
   end
 end

@@ -28,3 +28,4 @@ You may get your own `client_secret.json` from
 ## Notice(s) ##
 
 -   There is no warranty for this code and data.
+-   Tested using ruby 3.1.2p20.
